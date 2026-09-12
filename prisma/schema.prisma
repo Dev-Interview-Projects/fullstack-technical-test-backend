@@ -4,18 +4,89 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+    provider = "prisma-client"
+    output   = "../src/generated/prisma"
 }
 
 datasource db {
-  provider = "mysql"
+    provider = "mysql"
+}
+
+enum UserRole {
+    USER
+    ADMIN
+}
+
+enum ReservationStatus {
+    PENDING
+    CONFIRMED
+    CANCELLED
+}
+
+model User {
+    id           Int      @id @default(autoincrement())
+    name         String
+    email        String   @unique
+    passwordHash String
+    role         UserRole @default(USER)
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+
+    reservations Reservation[]
 }
 
 model Event {
-    id                  Int     @id @default(autoincrement())
-    name                String
-    date                DateTime
-    location            String
-    availableTickets    Int
+    id          Int      @id @default(autoincrement())
+    title       String
+    description String?
+    date        DateTime
+    location    String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    ticketTypes TicketType[]
+}
+
+model TicketType {
+    id        Int      @id @default(autoincrement())
+    eventId   Int
+    name      String
+    price     Decimal  @db.Decimal(10, 2)
+    quantity  Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    event            Event             @relation(fields: [eventId], references: [id])
+    reservationItems ReservationItem[]
+
+    @@index([eventId])
+}
+
+model Reservation {
+    id        Int               @id @default(autoincrement())
+    userId    Int
+    status    ReservationStatus @default(PENDING)
+    total     Decimal           @db.Decimal(10, 2)
+    createdAt DateTime          @default(now())
+    updatedAt DateTime          @updatedAt
+
+    user  User              @relation(fields: [userId], references: [id])
+    items ReservationItem[]
+
+    @@index([userId])
+}
+
+model ReservationItem {
+    id            Int      @id @default(autoincrement())
+    reservationId Int
+    ticketTypeId  Int
+    quantity      Int
+    unitPrice     Decimal  @db.Decimal(10, 2)
+    createdAt     DateTime @default(now())
+
+    reservation Reservation @relation(fields: [reservationId], references: [id])
+    ticketType  TicketType  @relation(fields: [ticketTypeId], references: [id])
+
+    @@index([reservationId])
+    @@index([ticketTypeId])
 }
