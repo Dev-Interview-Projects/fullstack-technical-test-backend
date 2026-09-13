@@ -5,6 +5,9 @@ export const getReservations = async () => {
         orderBy: {
             id: "asc",
         },
+        include: {
+            items: true
+        },
     });
 };
 
@@ -13,16 +16,57 @@ export const getReservationById = async (id: number) => {
         where: {
             id,
         },
+        include: {
+            items: true
+        },
     });
 };
 
 export const createReservation = async (data: {
     userId: number;
-    total: number;
-    status?: "PENDING" | "CONFIRMED" | "CANCELLED";
+    items: {
+        ticketTypeId: number;
+        quantity: number;
+    }[];
 }) => {
+    const ticketTypes = await prisma.ticketType.findMany({
+        where: {
+            id: {
+                in: data.items.map((item) => item.ticketTypeId),
+            },
+        },
+    });
+
+    const ticketTypeMap = new Map(
+        ticketTypes.map((ticket) => [ticket.id, ticket])
+    );
+
+    const total = data.items.reduce((sum, item) => {
+        const ticketType = ticketTypeMap.get(item.ticketTypeId);
+        if (!ticketType) {
+            throw new Error("Ticket type no encontrado");
+        }
+        return sum + Number(ticketType.price) * item.quantity;
+    }, 0);
+
     return prisma.reservation.create({
-        data,
+        data: {
+            userId: data.userId,
+            total,
+            items: {
+                create: data.items.map((item) => {
+                    const ticketType = ticketTypeMap.get(item.ticketTypeId)!;
+                    return {
+                        ticketTypeId: item.ticketTypeId,
+                        quantity: item.quantity,
+                        unitPrice: Number(ticketType.price),
+                    };
+                }),
+            },
+        },
+        include: {
+            items: true
+        },
     });
 };
 
@@ -30,7 +74,6 @@ export const updateReservation = async (
     id: number,
     data: {
         status: "PENDING" | "CONFIRMED" | "CANCELLED";
-        total: number;
     },
 ) => {
     return prisma.reservation.update({
@@ -38,6 +81,9 @@ export const updateReservation = async (
             id,
         },
         data,
+        include: {
+            items: true
+        }
     });
 };
 
