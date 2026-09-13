@@ -1,0 +1,460 @@
+{
+  "info": {
+    "_postman_id": "546594d9-7019-4949-9eb8-e91359115fd5",
+    "name": "fullstack-technical-test-backend",
+    "description": "API REST para la gestión de eventos, tipos de tickets, usuarios y reservas. Esta colección contiene los endpoints necesarios para realizar las operaciones CRUD del sistema.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52192273",
+    "_collection_link": "https://go.postman.co/collection/52192273-546594d9-7019-4949-9eb8-e91359115fd5?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "List All Events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "events"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Event",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Concierto de prueba\",\r\n  \"description\": \"Evento creado desde Postman\",\r\n  \"date\": \"2026-10-15T20:00:00.000Z\",\r\n  \"location\": \"Guayaquil\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/events",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "events"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Event By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "events",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Event",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Concierto actualizado\",\r\n  \"description\": \"Descripción actualizada desde Postman\",\r\n  \"date\": \"2026-11-20T21:00:00.000Z\",\r\n  \"location\": \"Centro de Convenciones de Guayaquil\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/events/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "events",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Event",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "events",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoints para consultar y administrar eventos, incluyendo consulta de todos los registros, consulta por ID, creación, actualización y eliminación."
+    },
+    {
+      "name": "Ticket Types",
+      "item": [
+        {
+          "name": "List All Ticket Types",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ticket-types",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ticket-types"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Ticket Type",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"eventId\": 2,\r\n  \"name\": \"General\",\r\n  \"price\": 25.00,\r\n  \"quantity\": 100\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ticket-types",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ticket-types"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Ticket Type By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ticket-types/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ticket-types",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Ticket Type",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"VIP\",\r\n  \"price\": 50,\r\n  \"quantity\": 80\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ticket-types/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ticket-types",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Ticket Type",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ticket-types/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ticket-types",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoints para consultar y administrar los tipos de tickets, incluyendo consulta de todos los registros, consulta por ID, creación, actualización y eliminación."
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "List All Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Usuario Reserva\",\r\n  \"email\": \"reserva@test.com\",\r\n  \"passwordHash\": \"hash-de-prueba\",\r\n  \"role\": \"USER\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List User By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Usuario Actualizado\",\r\n  \"email\": \"usuario.actualizado@test.com\",\r\n  \"role\": \"ADMIN\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoints para consultar y administrar usuarios, incluyendo consulta de todos los registros, consulta por ID, creación, actualización y eliminación."
+    },
+    {
+      "name": "Reservations",
+      "item": [
+        {
+          "name": "List All Reservations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Reservation",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"userId\": 2,\r\n  \"total\": 50.00,\r\n  \"status\": \"PENDING\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reservations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Reservation By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservations/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservations",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Reservation",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"CONFIRMED\",\r\n  \"total\": 75.00\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reservations/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservations",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Reservation",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservations/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservations",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoints para consultar y administrar reservas, incluyendo consulta de todos los registros, consulta por ID, creación, actualización y eliminación."
+    }
+  ]
+}
