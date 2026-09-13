@@ -26,11 +26,10 @@ export const createReservationController = async (
     req: Request,
     res: Response
 ): Promise<void> => {
-    const { userId, total, status } = req.body;
+    const { userId, items } = req.body;
     const reservation = await createReservation({
         userId,
-        total,
-        status
+        items
     });
     res.status(201).json(reservation);
 }
@@ -40,10 +39,9 @@ export const updateReservationController = async (
     res: Response
 ): Promise<void> => {
     const id = Number(req.params.id);
-    const { status, total } = req.body;
+    const { status } = req.body;
     const reservation = await updateReservation(id, {
-        status,
-        total
+        status
     });
     res.status(200).json(reservation);
 }
