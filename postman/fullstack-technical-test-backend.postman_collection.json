@@ -259,7 +259,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"name\": \"Usuario Reserva\",\r\n  \"email\": \"reserva@test.com\",\r\n  \"passwordHash\": \"hash-de-prueba\",\r\n  \"role\": \"USER\"\r\n}",
+              "raw": "{\r\n  \"name\": \"Usuario Prueba\",\r\n  \"email\": \"prueba-admin2@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"ADMIN\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -371,7 +371,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"userId\": 2,\r\n  \"total\": 50.00,\r\n  \"status\": \"PENDING\"\r\n}",
+              "raw": "{\r\n  \"userId\": 2,\r\n  \"items\": [\r\n    {\r\n      \"ticketTypeId\": 3,\r\n      \"quantity\": 2\r\n    }\r\n  ]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -396,13 +396,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/reservations/1",
+              "raw": "{{baseUrl}}/reservations/2",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "reservations",
-                "1"
+                "2"
               ]
             }
           },
@@ -415,7 +415,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"status\": \"CONFIRMED\",\r\n  \"total\": 75.00\r\n}",
+              "raw": "{\r\n  \"status\": \"PENDING\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -423,13 +423,13 @@
               }
             },
             "url": {
-              "raw": "{{baseUrl}}/reservations/1",
+              "raw": "{{baseUrl}}/reservations/2",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "reservations",
-                "1"
+                "2"
               ]
             }
           },
@@ -455,6 +455,50 @@
         }
       ],
       "description": "Endpoints para consultar y administrar reservas, incluyendo consulta de todos los registros, consulta por ID, creación, actualización y eliminación."
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const response = pm.response.json();\r\n\r\npm.environment.set('token', response.token);\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"mario@gmail.com\",\r\n  \"password\": \"123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoints para autenticar usuarios, incluyendo inicio de sesión y generación de tokens JWT para acceder a recursos protegidos."
     }
   ]
 }
